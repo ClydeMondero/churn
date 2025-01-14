@@ -4,10 +4,11 @@ const fs = require("fs");
 
 async function createDatabaseConnection() {
   const connection = await mysql.createConnection({
-    host: "82.112.239.115",
+    host: "193.203.184.155",
     user: "u816730822_thesis",
-    password: "Martinalouise@28",
+    password: "Churn@123",
     database: "u816730822_thesis",
+    port: 3306,
   });
   return connection;
 }
