@@ -4,7 +4,7 @@ const fs = require("fs");
 
 async function createDatabaseConnection() {
   const connection = await mysql.createConnection({
-    host: "193.203.184.155",
+    host: "u816730822_thesis",
     user: "root",
     password: "",
     database: "churn",
