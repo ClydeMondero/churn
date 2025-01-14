@@ -46,4 +46,3 @@ if ($stmt->rowCount() > 0) {
 } else {
     echo "<tr><td colspan='6' class='text-center'>No reviews found</td></tr>";
 }
-?>
