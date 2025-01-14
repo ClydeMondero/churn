@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "fs": "^0.0.1-security",
+    "mysql2": "^3.11.4",
+    "puppeteer": "^23.9.0",
+    "sentiment": "^5.0.2"
+  },
+  "name": "thesis",
+  "version": "1.0.0",
+  "main": "Node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

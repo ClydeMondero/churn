@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .review {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bank Reviews</h1>
+    <div id="reviews-container"></div>
+    <script>
+        async function fetchReviews() {
+            const response = await fetch('/scrape-reviews');
+            const reviews = await response.json();
+            const reviewsContainer = document.getElementById('reviews-container');
+
+            if (reviews.length > 0) {
+                reviews.forEach(review => {
+                    const reviewDiv = document.createElement('div');
+                    reviewDiv.className = 'review';
+                    reviewDiv.innerHTML = `<strong>Title:</strong> ${review.title}<br><strong>Rating:</strong> ${review.rating}`;
+                    reviewsContainer.appendChild(reviewDiv);
+                });
+            } else {
+                reviewsContainer.innerHTML = 'No reviews found.';
+            }
+        }
+
+        // Fetch reviews when the page loads
+        window.onload = fetchReviews;
+    </script>
+</body>
+</html>
