@@ -120,10 +120,6 @@ async function scrapeReviews(url) {
       success: false,
       message: "Error occurred while scraping reviews.",
     };
-  } finally {
-    if (connection) {
-      await connection.end();
-    }
   }
 }
 
