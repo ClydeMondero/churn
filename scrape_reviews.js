@@ -46,7 +46,7 @@ async function scrapeReviews(url) {
   try {
     connection = await createDatabaseConnection();
 
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
 
     await page.setViewport({ width: 1280, height: 800 });
