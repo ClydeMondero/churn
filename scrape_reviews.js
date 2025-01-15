@@ -1,51 +1,7 @@
 const puppeteer = require("puppeteer");
-const mysql = require("mysql2/promise");
-const fs = require("fs");
-
-async function createDatabaseConnection() {
-  const connection = await mysql.createConnection({
-    host: "193.203.184.155",
-    user: "u816730822_thesis",
-    password: "Churn@123",
-    database: "u816730822_thesis",
-    port: 3306,
-  });
-  return connection;
-}
-
-async function insertReviews(connection, reviews, placeName) {
-  try {
-    const [deleteResult] = await connection.execute("DELETE FROM reviews");
-    console.log(
-      `Deleted ${deleteResult.affectedRows} rows from reviews table.`
-    );
-
-    for (const review of reviews) {
-      const { reviewerName, reviewText, rating } = review;
-      try {
-        const [insertResults] = await connection.execute(
-          "INSERT INTO reviews (reviewer_name, review_text, rating, place_name) VALUES (?, ?, ?, ?)",
-          [reviewerName, reviewText, rating, placeName]
-        );
-        console.log(`Review inserted with ID: ${insertResults.insertId}`);
-        await connection.execute(
-          "INSERT INTO reviews_history (reviewer_name, review_text, rating, action, timestamp, place_name) VALUES (?, ?, ?, ?, ?, ?)",
-          [reviewerName, reviewText, rating, "insert", new Date(), placeName]
-        );
-      } catch (err) {
-        console.error("Error inserting review:", err);
-      }
-    }
-  } catch (err) {
-    console.error("Error deleting existing reviews:", err);
-  }
-}
 
 async function scrapeReviews(url) {
-  let connection;
   try {
-    connection = await createDatabaseConnection();
-
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
 
@@ -105,14 +61,14 @@ async function scrapeReviews(url) {
 
     console.log("Total reviews scraped:", reviews.length);
 
-    await insertReviews(connection, reviews, placeName);
-
-    fs.writeFileSync("reviews.json", JSON.stringify(reviews, null, 2));
+    // fs.writeFileSync("reviews.json", JSON.stringify(reviews, null, 2));
 
     await browser.close();
     return {
       success: true,
       message: "All reviews scraped and saved successfully.",
+      reviews: JSON.stringify(reviews, null, 2),
+      placeName,
     };
   } catch (error) {
     console.error("Error during scraping:", error);
