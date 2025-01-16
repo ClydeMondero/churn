@@ -6,10 +6,10 @@ async function scrapeReviews(url) {
     const page = await browser.newPage();
 
     await page.setViewport({ width: 1280, height: 800 });
-    await page.goto(url, { waitUntil: "networkidle0", timeout: 300000 });
+    await page.goto(url, { waitUntil: "networkidle0", timeout: 400000 });
 
     // Waiting for an alternate selector
-    await page.waitForSelector("h1", { timeout: 300000 });
+    await page.waitForSelector("h1", { timeout: 400000 });
 
     const placeName = await page.evaluate(() => {
       const placeElement = document.querySelector("h1");
@@ -36,7 +36,7 @@ async function scrapeReviews(url) {
       }
     });
 
-    await page.waitForSelector(".jftiEf", { timeout: 300000 });
+    await page.waitForSelector(".jftiEf", { timeout: 400000 });
 
     const reviews = await page.evaluate(() => {
       const reviews = [];
